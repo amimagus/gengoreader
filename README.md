@@ -1,2 +1,3 @@
 # gengoreader
-Reads Gengo RSS f eed
+Reads Gengo RSS feed
+
