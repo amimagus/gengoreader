@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?><rss version="2.0"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+     xmlns:admin="http://webns.net/mvcb/"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Gengo.com | work_available_jobs</title>
+    <link>https://gengo.com/rss/available_jobs/57c56531c6ec0e741c45d19f1bfa1934580b1ba016459675312402/</link>
+    <description>Gengo</description>
+    <dc:creator>info at gengo dot com</dc:creator>
+    <dc:rights>Copyright 2024</dc:rights>
+    <admin:generatorAgent rdf:resource="https://gengo.com/" />
+        <item>
+      <title>(Pro) | suigian_translation_stage_20240218.rtf | 273 chars | Reward: US$13.10 | Japanese/English</title>
+      <link>https://gengo.com/t/jobs/details/33100722?referral=rss</link>
+      <guid>https://gengo.com/t/jobs/details/33100722</guid>
+      <description><![CDATA[suigian_translation_stage_20240218.rtf]]></description>
+      <pubDate>Sat, 17 Feb 2024 16:17:28 +0000</pubDate>
+    </item>
+        <item>
+      <title>(Pro) | suigian_translation_stage_20240218.rtf | 273 chars | Reward: US$13.10 | Japanese/English</title>
+      <link>https://gengo.com/t/jobs/details/33100721?referral=rss</link>
+      <guid>https://gengo.com/t/jobs/details/33100721</guid>
+      <description><![CDATA[suigian_translation_stage_20240218.rtf]]></description>
+      <pubDate>Sat, 17 Feb 2024 16:17:28 +0000</pubDate>
+    </item>
+        <item>
+      <title>(Pro) | suigian_translation_stage_20240218.rtf | 273 chars | Reward: US$13.10 | Japanese/English</title>
+      <link>https://gengo.com/t/jobs/details/33100723?referral=rss</link>
+      <guid>https://gengo.com/t/jobs/details/33100723</guid>
+      <description><![CDATA[suigian_translation_stage_20240218.rtf]]></description>
+      <pubDate>Sat, 17 Feb 2024 16:17:28 +0000</pubDate>
+    </item>
+      </channel>
+</rss>
