@@ -1,14 +1,16 @@
 import json
+import smtplib
 
-# import requests
 # import schedule
 from bs4 import BeautifulSoup
-from plyer import notification
 
+# import requests
+# from plyer import notification
 # import time
 
 
-def main():  # Scrapes rss feed for titles and links of currently available translation jobs
+# main is the driver method. It calls the read and write functions and notifies the user of new jobs.
+def main():
 
     newjobs = []
 
@@ -23,12 +25,20 @@ def main():  # Scrapes rss feed for titles and links of currently available tran
             newjobs.append(link)
 
     # Notify user of list of new jobs. Want to change to email instead of desktop notification.
-    notification.notify(
-        title="NEW JOB!",
-        message=f"{newjobs}",
-        app_icon=None,
-        timeout=10,
-    )
+    server = smtplib.SMTP("smtp.gmail.com", 587)
+    send = input("SENDER EMAIL: ")
+    receive = input("RECEIVER EMAIL: ")
+    server.starttls()
+    server.login(input("EMAIL: "), input("PASSWORD: "))
+    subject = "New jobs"
+    text = f"Subject: {subject}\n\n{newjobs}"
+    server.sendmail(send, receive, text)
+    # notification.notify(
+    #     title="NEW JOB!",
+    #     message=f"{newjobs}",
+    #     app_icon=None,
+    #     timeout=10,
+    # )
 
     # print("END OF AVAILABLE JOBS\n")
 
@@ -39,6 +49,7 @@ def read():
     #     "https://gengo.com/rss/available_jobs/57c56531c6ec0e741c45d19f1bfa1934580b1ba016459675312402"
     # )
 
+    # This line is to test with dummy data. When there's a live job, use url.content in place of f.
     f = open("testdata.xml")
 
     soup = BeautifulSoup(f, "xml")
@@ -50,7 +61,7 @@ def write(link):
     # Find/open the write destination JSON
     json_data = readfromjson()
 
-    # Check against JSON
+    # Check fetched jobs against JSON
     if link not in json_data:
 
         # Append new links
