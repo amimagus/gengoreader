@@ -1,12 +1,17 @@
 import json
 import smtplib
+import time
 
-# import schedule
+import requests
+import schedule
 from bs4 import BeautifulSoup
 
-# import requests
-# from plyer import notification
-# import time
+server = smtplib.SMTP("smtp.gmail.com", 587)
+send = input("SENDER EMAIL: ")
+receive = input("RECEIVER EMAIL: ")
+server.starttls()
+server.login(input("EMAIL: "), input("PASSWORD: "))
+subject = "New jobs"
 
 
 # main is the driver method. It calls the read and write functions and notifies the user of new jobs.
@@ -20,19 +25,12 @@ def main():
         link = item.link.text
         # print(f"Title: {title}\n\nLink: {link}\n\n-----------------------\n")
 
-        # If return value of write is True, add to list. If false, do nothing.
+        # If return value of write is True, add to list and send an email of that list. If false, do nothing.
         if write(link):
             newjobs.append(link)
+            text = f"Subject: {subject}\n\n{newjobs}"
+            server.sendmail(send, receive, text)
 
-    # Notify user of list of new jobs. Want to change to email instead of desktop notification.
-    server = smtplib.SMTP("smtp.gmail.com", 587)
-    send = input("SENDER EMAIL: ")
-    receive = input("RECEIVER EMAIL: ")
-    server.starttls()
-    server.login(input("EMAIL: "), input("PASSWORD: "))
-    subject = "New jobs"
-    text = f"Subject: {subject}\n\n{newjobs}"
-    server.sendmail(send, receive, text)
     # notification.notify(
     #     title="NEW JOB!",
     #     message=f"{newjobs}",
@@ -45,14 +43,14 @@ def main():
 
 # read gets all available jobs and sanitizes them
 def read():
-    # url = requests.get(
-    #     "https://gengo.com/rss/available_jobs/57c56531c6ec0e741c45d19f1bfa1934580b1ba016459675312402"
-    # )
+    url = requests.get(
+        "https://gengo.com/rss/available_jobs/57c56531c6ec0e741c45d19f1bfa1934580b1ba016459675312402"
+    )
 
     # This line is to test with dummy data. When there's a live job, use url.content in place of f.
-    f = open("testdata.xml")
+    # f = open("testdata.xml")
 
-    soup = BeautifulSoup(f, "xml")
+    soup = BeautifulSoup(url.content, "xml")
     return soup.find_all("item")
 
 
@@ -87,11 +85,10 @@ def writetojson(towrite):
         json_file.write(json_object)
 
 
-main()
+# Calls the main method every 60 seconds (maximum allowed frequency)
+schedule.every(60).seconds.do(main)
 
-# Calls the read method every 60 seconds (maximum allowed frequency)
-# schedule.every(60).seconds.do(read)
-
-# while True:  # Don't quite know what this does
-#     schedule.run_pending()
-#     time.sleep(1)
+# Don't quite know what this does
+while True:
+    schedule.run_pending()
+    time.sleep(1)
