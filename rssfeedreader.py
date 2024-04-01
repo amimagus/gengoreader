@@ -7,10 +7,9 @@ import schedule
 from bs4 import BeautifulSoup
 
 server = smtplib.SMTP("smtp.gmail.com", 587)
-send = input("SENDER EMAIL: ")
-receive = input("RECEIVER EMAIL: ")
+email = input("EMAIL: ")
 server.starttls()
-server.login(input("EMAIL: "), input("PASSWORD: "))
+server.login(email, input("PASSWORD: "))
 subject = "New jobs"
 
 
@@ -18,7 +17,7 @@ subject = "New jobs"
 def main():
 
     newjobs = []
-
+    comparisoncounter = 0
     items = read()
     for item in items:
         # title = item.title.text
@@ -28,17 +27,11 @@ def main():
         # If return value of write is True, add to list and send an email of that list. If false, do nothing.
         if write(link):
             newjobs.append(link)
-            text = f"Subject: {subject}\n\n{newjobs}"
-            server.sendmail(send, receive, text)
+            comparisoncounter += 1
 
-    # notification.notify(
-    #     title="NEW JOB!",
-    #     message=f"{newjobs}",
-    #     app_icon=None,
-    #     timeout=10,
-    # )
-
-    # print("END OF AVAILABLE JOBS\n")
+    if comparisoncounter != 0:
+        text = f"Subject: {subject}\n\n{newjobs}"
+        server.sendmail(email, email, text)
 
 
 # read gets all available jobs and sanitizes them
@@ -47,7 +40,7 @@ def read():
         "https://gengo.com/rss/available_jobs/57c56531c6ec0e741c45d19f1bfa1934580b1ba016459675312402"
     )
 
-    # This line is to test with dummy data. When there's a live job, use url.content in place of f.
+    # # This line is to test with dummy data. When there's a live job, use url.content in place of f.
     # f = open("testdata.xml")
 
     soup = BeautifulSoup(url.content, "xml")

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gengoreader
+  labels:
+    app: gengoreader
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gengoreader
+  template:
+    metadata:
+      labels:
+        app: gengoreader
+    spec:
+      containers:
+        - name: gengoreader
+          image: gengoreader:latest
+          imagePullPolicy: Never
