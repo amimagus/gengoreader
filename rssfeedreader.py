@@ -6,7 +6,7 @@ import requests
 import schedule
 from bs4 import BeautifulSoup
 
-server = smtplib.SMTP("smtp.gmail.com", 587)
+server = smtplib.SMTP_SSL("smtp.gmail.com", 587)
 email = input("EMAIL: ")
 server.starttls()
 server.login(email, input("PASSWORD: "))
