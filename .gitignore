@@ -155,6 +155,9 @@ cython_debug/
 # rsspersist is for comparing against to determine which jobs are new
 rsspersist.json
 
+# secrets.yaml contains login credentials for smtp
+secrets.yaml
+
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore

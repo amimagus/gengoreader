@@ -1,4 +1,5 @@
 import json
+import os
 import smtplib
 import time
 
@@ -6,10 +7,16 @@ import requests
 import schedule
 from bs4 import BeautifulSoup
 
+# note to self to clear persist json as first action
+with open("rsspersist.json", "r") as r:
+    data = json.load(r)
+    data = []
+    with open("rsspersist.json", "w") as w:
+        data = json.dump(data, w)
+
 server = smtplib.SMTP("smtp.gmail.com", 587)
-email = input("EMAIL: ")
-server.starttls()
-server.login(email, input("PASSWORD: "))
+email = os.getenv("EMAIL")
+password = os.getenv("PASSWORD")
 subject = "New jobs"
 
 
@@ -31,7 +38,10 @@ def main():
 
     if comparisoncounter != 0:
         text = f"Subject: {subject}\n\n{newjobs}"
+        server.starttls()
+        server.login(email, password)
         server.sendmail(email, email, text)
+        server.quit()
 
 
 # read gets all available jobs and sanitizes them
