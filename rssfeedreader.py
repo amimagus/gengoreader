@@ -7,17 +7,12 @@ import requests
 import schedule
 from bs4 import BeautifulSoup
 
-# note to self to clear persist json as first action
+# Clear rsspersist json as first action
 with open("rsspersist.json", "r") as r:
     data = json.load(r)
     data = []
     with open("rsspersist.json", "w") as w:
         data = json.dump(data, w)
-
-server = smtplib.SMTP("smtp.gmail.com", 587)
-email = os.getenv("EMAIL")
-password = os.getenv("PASSWORD")
-subject = "New jobs"
 
 
 # main is the driver method. It calls the read and write functions and notifies the user of new jobs.
@@ -37,6 +32,10 @@ def main():
             comparisoncounter += 1
 
     if comparisoncounter != 0:
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        email = os.getenv("EMAIL")
+        password = os.getenv("PASSWORD")
+        subject = "New jobs"
         text = f"Subject: {subject}\n\n{newjobs}"
         server.starttls()
         server.login(email, password)
