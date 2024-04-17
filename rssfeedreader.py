@@ -22,9 +22,7 @@ def main():
     comparisoncounter = 0
     items = read()
     for item in items:
-        # title = item.title.text
         link = item.link.text
-        # print(f"Title: {title}\n\nLink: {link}\n\n-----------------------\n")
 
         # If return value of write is True, add to list and send an email of that list. If false, do nothing.
         if write(link):
