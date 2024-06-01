@@ -30,15 +30,18 @@ def main():
             comparisoncounter += 1
 
     if comparisoncounter != 0:
-        server = smtplib.SMTP("smtp.gmail.com", 587)
-        email = os.getenv("EMAIL")
-        password = os.getenv("PASSWORD")
-        subject = "New jobs"
-        text = f"Subject: {subject}\n\n{newjobs}"
-        server.starttls()
-        server.login(email, password)
-        server.sendmail(email, email, text)
-        server.quit()
+        try:
+            server = smtplib.SMTP("smtp.gmail.com", 587)
+            email = os.getenv("EMAIL")
+            password = os.getenv("PASSWORD")
+            subject = "New jobs"
+            text = f"Subject: {subject}\n\n{newjobs}"
+            server.starttls()
+            server.login(email, password)
+            server.sendmail(email, email, text)
+            server.quit()
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
 
 
 # read gets all available jobs and sanitizes them
